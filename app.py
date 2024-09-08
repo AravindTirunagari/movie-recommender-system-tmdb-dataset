@@ -1,10 +1,33 @@
-import gdown
+
 import pickle
 import pandas as pd
 import io
 import streamlit as st
 import requests
 
+import subprocess
+import sys
+
+# Ensure that gdown is installed
+try:
+    import gdown
+except ImportError:
+    # Use Streamlit to display an error message
+    st.error("`gdown` not found. Installing now...")
+
+    # Install the package using pip
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "gdown"])
+
+    # Try importing again after installation
+    try:
+        import gdown
+    except ImportError:
+        st.error("Failed to install `gdown`. Please install it manually.")
+        sys.exit(1)  # Stop the app if installation fails
+    
+st.success("gdown successfully imported!")
+
+import gdown
 # URL for the similarity pickle file
 url = "https://drive.google.com/uc?id=12SVsmtRTuDsxVKulejno7sXHq6AsYRtG"
 
